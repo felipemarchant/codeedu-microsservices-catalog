@@ -28,4 +28,9 @@ class Category extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     *  @var bool
+     */
+    public $incrementing = false;
 }
