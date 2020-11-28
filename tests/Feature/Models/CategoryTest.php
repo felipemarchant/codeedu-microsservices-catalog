@@ -65,4 +65,18 @@ class CategoryTest extends TestCase
         $category->update($data);
         foreach ($data as $key => $value) $this->assertEquals($value, $category->{$key});
     }
+
+    /**
+     * @return void
+     */
+    public function testDelete()
+    {
+        $this->assertCount(0, Category::all());
+        $category = factory(Category::class)->create(['description' => 'test description', 'is_active' => false])->first();
+        $category->delete();
+        $this->assertCount(0, Category::all());
+        $category = factory(Category::class)->create(['description' => 'test description', 'is_active' => false])->first();
+        Category::destroy($category->id);
+        $this->assertCount(0, Category::all());
+    }
 }
