@@ -4,6 +4,7 @@ namespace Tests\Feature\Models;
 
 use App\Models\Genre;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class GenreTest extends TestCase
@@ -28,5 +29,21 @@ class GenreTest extends TestCase
             'updated_at',
             'deleted_at'
         ], $genreKey);
+    }
+
+    /**
+     * Testar criação da categoria
+     * @return void
+     */
+    public function testCreate()
+    {
+        $genre = Genre::create(['name' => 'Teste 1'])->refresh();
+        $this->assertEquals($genre->name, 'Teste 1');
+        $this->assertTrue($genre->is_active);
+        $genre = Genre::create(['name' => 'Teste 1', 'is_active' => false])->refresh();
+        $this->assertFalse($genre->is_active);
+        $genre = Genre::create(['name' => 'Teste 1', 'is_active' => true])->refresh();
+        $this->assertTrue($genre->is_active);
+        $this->assertTrue(Uuid::isValid($genre->id));
     }
 }

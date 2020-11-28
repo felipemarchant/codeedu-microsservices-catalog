@@ -21,7 +21,7 @@ class Genre extends Model
     /** 
      * @var array
      */
-    protected $casts = ['id' => 'string'];
+    protected $casts = ['id' => 'string', 'is_active' => 'boolean'];
 
     /** 
      * @var array
