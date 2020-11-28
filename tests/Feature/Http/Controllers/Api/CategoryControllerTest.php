@@ -34,6 +34,9 @@ class CategoryControllerTest extends TestCase
                  ->assertJson($category->toArray());
     }
 
+    /**
+     * @return void
+     */
     public function testStore()
     {
         $response = $this->json('POST', route('categories.store'), [
@@ -56,6 +59,31 @@ class CategoryControllerTest extends TestCase
             'description' => 'description'
         ]);
     }
+    
+    /**
+     * @return void
+     */
+    public function testUpdate()
+    {
+        $category = factory(Category::class)->create(['is_active' => false, 'description' => 'desc']);
+        $response = $this->json('PUT', route('categories.update', ['category' => $category->id]), [
+            'name' => 'test',
+            'is_active' => true,
+            'description' => 'teste'
+        ]);
+        $id = $response->json('id');
+        $category = Category::find($id);
+        $response->assertStatus(200)
+                 ->assertJson($category->toArray())
+                 ->assertJsonFragment(['is_active' => true, 'description' => 'teste']);
+        $response = $this->json('PUT', route('categories.update', ['category' => $category->id]), [
+            'name' => 'test',
+            'description' => ''
+        ]);
+        $response->assertJsonFragment([
+            'description' => null
+        ]);
+    }
 
     /**
      * @return void
@@ -72,7 +100,7 @@ class CategoryControllerTest extends TestCase
         $this->assertInvalidationMax($response);
         $this->assertInvalidationBoolean($response);
 
-        $category = factory(Category::class)->create();
+        $category = factory(Category::class)->create()->id;
         $response = $this->json('PUT', route('categories.update', compact('category')), []);
         $this->assertInvalidationRequired($response);
 
