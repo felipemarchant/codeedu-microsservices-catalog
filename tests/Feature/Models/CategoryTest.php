@@ -4,6 +4,7 @@ namespace Tests\Feature\Models;
 
 use App\Models\Category;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class CategoryTest extends TestCase
@@ -49,6 +50,7 @@ class CategoryTest extends TestCase
         $this->assertFalse($category->is_active);
         $category = Category::create(['name' => 'Teste 1', 'is_active' => true])->refresh();
         $this->assertTrue($category->is_active);
+        $this->assertTrue(Uuid::isValid($category->id));
         
     }
 
