@@ -59,9 +59,7 @@ class CategoryTest extends TestCase
     public function testDates()
     {
         $dates = ['created_at', 'updated_at', 'deleted_at'];
-        foreach ($dates as $date) {
-            $this->assertContains($date, $this->category->getDates());
-        }
+        foreach ($dates as $date) $this->assertContains($date, $this->category->getDates());
         $this->assertCount(count($dates), $this->category->getDates());
     }
 
