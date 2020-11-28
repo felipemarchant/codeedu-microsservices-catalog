@@ -72,10 +72,10 @@ class CategoryTest extends TestCase
     public function testDelete()
     {
         $this->assertCount(0, Category::all());
-        $category = factory(Category::class)->create(['description' => 'test description', 'is_active' => false])->first();
+        $category = factory(Category::class)->create()->first();
         $category->delete();
         $this->assertCount(0, Category::all());
-        $category = factory(Category::class)->create(['description' => 'test description', 'is_active' => false])->first();
+        $category = factory(Category::class)->create()->first();
         Category::destroy($category->id);
         $this->assertCount(0, Category::all());
     }
