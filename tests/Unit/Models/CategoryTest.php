@@ -33,7 +33,6 @@ class CategoryTest extends TestCase
             'description',
             'is_active'
         ]);
-        $this->assertEquals($this->category->getCasts(), ['id' => 'string']);
         $this->assertEquals($this->category->getIncrementing(), false);
     }
 
@@ -42,7 +41,7 @@ class CategoryTest extends TestCase
      */
     public function testCasts()
     {
-        $this->assertEquals($this->category->getCasts(), ['id' => 'string']);
+        $this->assertEquals($this->category->getCasts(), ['id' => 'string', 'is_active' => 'boolean']);
         $this->assertEquals($this->category->getIncrementing(), false);
     }
 
