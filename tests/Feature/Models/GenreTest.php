@@ -12,7 +12,7 @@ class GenreTest extends TestCase
     use DatabaseMigrations;
 
     /**
-     * Teste listagem de categorias
+     * Testar listagem de gêneros
      * @return void
      */
     public function testList()
@@ -32,7 +32,7 @@ class GenreTest extends TestCase
     }
 
     /**
-     * Testar criação da categoria
+     * Testar criação da gênero
      * @return void
      */
     public function testCreate()
@@ -48,7 +48,7 @@ class GenreTest extends TestCase
     }
 
     /**
-     * Testar update da categoria
+     * Testar update da gênero
      * @return void
      */
     public function testUpdate()
@@ -60,6 +60,7 @@ class GenreTest extends TestCase
     }
 
     /**
+     * Testar delete de gênero
      * @return void
      */
     public function testDelete()

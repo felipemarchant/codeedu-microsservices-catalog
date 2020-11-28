@@ -12,7 +12,7 @@ class CategoryTest extends TestCase
     use DatabaseMigrations;
 
     /**
-     * Teste listagem de categorias
+     * Testar listagem de categorias
      * @return void
      */
     public function testList()
@@ -67,6 +67,7 @@ class CategoryTest extends TestCase
     }
 
     /**
+     * Testar delete de categoria
      * @return void
      */
     public function testDelete()
