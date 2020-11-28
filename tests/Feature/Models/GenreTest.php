@@ -46,4 +46,16 @@ class GenreTest extends TestCase
         $this->assertTrue($genre->is_active);
         $this->assertTrue(Uuid::isValid($genre->id));
     }
+
+    /**
+     * Testar update da categoria
+     * @return void
+     */
+    public function testUpdate()
+    {
+        $genre = factory(Genre::class)->create(['name' => 'test name', 'is_active' => true])->first();
+        $data = ['name' => '1111', 'is_active' => false];
+        $genre->update($data);
+        foreach ($data as $key => $value) $this->assertEquals($value, $genre->{$key});
+    }
 }
