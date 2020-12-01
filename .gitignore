@@ -6,6 +6,8 @@
 .env
 .env.testing
 .env.backup
+!.docker/app/.env
+!.docker/app/.env.testing
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
