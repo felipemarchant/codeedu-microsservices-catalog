@@ -93,20 +93,15 @@ class GenreControllerTest extends TestCase
      */
     public function testInvalidatorData()
     {
-        $response = $this->json('POST', route('genres.store'), []);
-        $this->assertInvalidationRequired($response);
-
-        $response = $this->json('POST', route('genres.store'), [
-            'name' => str_repeat('a', 256),
-            'is_active' => 'c'
-        ]);
-        $this->assertInvalidationMax($response);
-        $this->assertInvalidationBoolean($response);
-
+        $data = ['name' => ''];
+        $this->assertInvalidationInStoreAction($data, 'required');
+        $data = ['name' => str_repeat('a', 256)];
+        $this->assertInvalidationInStoreAction($data, 'max.string', ['max' => 255]);
+        $data = ['is_active' => 'c'];
+        $this->assertInvalidationInStoreAction($data, 'boolean');
         $genre = factory(genre::class)->create()->id;
         $response = $this->json('PUT', route('genres.update', compact('genre')), []);
         $this->assertInvalidationRequired($response);
-
         $response = $this->json('PUT', route('genres.update', compact('genre')), [
             'name' => str_repeat('a', 256),
             'is_active' => 'c'
@@ -138,5 +133,13 @@ class GenreControllerTest extends TestCase
     private function assertInvalidationBoolean(TestResponse $response)
     {
         $this->assertInvalidationFields($response, ['is_active'], 'boolean');
+    }
+
+    /**
+     *  @return string
+     */
+    protected function routeStore(): string
+    {
+        return route('categories.store'); 
     }
 }
