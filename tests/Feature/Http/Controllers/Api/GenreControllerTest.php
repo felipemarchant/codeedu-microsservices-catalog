@@ -7,10 +7,12 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Support\Facades\Lang;
 use Tests\TestCase;
+use Tests\Traits\TestValidations;
 
 class GenreControllerTest extends TestCase
 {
     use DatabaseMigrations;
+    use TestValidations;
 
     /**
      * @return void
@@ -118,10 +120,8 @@ class GenreControllerTest extends TestCase
      */
     private function assertInvalidationRequired(TestResponse $response)
     {
-        $response->assertStatus(422)
-                 ->assertJsonValidationErrors(['name'])
-                 ->assertJsonMissingValidationErrors(['is_active'])
-                 ->assertJsonFragment([Lang::get('validation.required', ['attribute' => 'name', 'max' => 255])]);
+        $this->assertInvalidationFields($response, ['name'], 'required');
+        $response->assertJsonMissingValidationErrors(['is_active']);
     }
 
     /**
@@ -129,9 +129,7 @@ class GenreControllerTest extends TestCase
      */
     private function assertInvalidationMax(TestResponse $response)
     {
-        $response->assertStatus(422)
-                 ->assertJsonValidationErrors(['name'])
-                 ->assertJsonFragment([Lang::get('validation.max.string', ['attribute' => 'name', 'max' => 255])]);
+        $this->assertInvalidationFields($response, ['name'], 'max.string', ['max' => 255]);
     }
 
     /**
@@ -139,8 +137,6 @@ class GenreControllerTest extends TestCase
      */
     private function assertInvalidationBoolean(TestResponse $response)
     {
-        $response->assertStatus(422)
-                 ->assertJsonValidationErrors(['is_active'])
-                 ->assertJsonFragment([Lang::get('validation.boolean', ['attribute' => 'is active'])]);
+        $this->assertInvalidationFields($response, ['is_active'], 'boolean');
     }
 }
