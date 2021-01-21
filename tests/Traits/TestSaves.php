@@ -21,7 +21,7 @@ trait TestSaves
     {
         /** @var TestResponse */
         $response = $this->json('PUT', $this->routeUpdate(), $sendData);
-        if ($response->status() !== 200) throw new Exception("Response status must be 201. give {$response->status()}:\n{$response->content()}");
+        if ($response->status() !== 200) throw new Exception("Response status must be 200. give {$response->status()}:\n{$response->content()}");
         $this->assertInDatabase($response, $testDatabase);
         $this->assertJsonResponseContent($response, $testDatabase, $testJsonData);
         return $response;
