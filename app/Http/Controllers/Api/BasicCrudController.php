@@ -39,45 +39,4 @@ abstract class BasicCrudController extends Controller
         $key = (new $model)->getRouteKeyName();
         return $this->model()::where($key, $id)->firstOrFail();
     }
-
-//    /**
-//     * @param  \Illuminate\Http\Request  $request
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function store(Request $request)
-//    {
-//        $this->validate($request, $this->rules);
-//        return Category::create($request->all())->refresh();
-//    }
-//
-//    /**
-//     * @param  \App\Models\Category  $category
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function show(Category $category)
-//    {
-//        return $category;
-//    }
-//
-//    /**
-//     * @param  \Illuminate\Http\Request  $request
-//     * @param  \App\Models\Category  $category
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function update(Request $request, Category $category)
-//    {
-//        $this->validate($request, $this->rules);
-//        $category->update($request->all());
-//        return $category;
-//    }
-//
-//    /**
-//     * @param  \App\Models\Category  $category
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function destroy(Category $category)
-//    {
-//        $category->delete();
-//        return response()->noContent();
-//    }
 }
